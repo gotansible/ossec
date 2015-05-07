@@ -15,9 +15,9 @@
     dest=/var/ossec/etc/preloaded-vars.conf
 
 - name: configure server
-  include: server_config.yml
+  include: config_server.yml
   when: (ossec_server and not ossec_local)
 
 - name: configure agent
-  include: agent_config.yml
+  include: config_agent.yml
   when: (not ossec_server and not ossec_local)

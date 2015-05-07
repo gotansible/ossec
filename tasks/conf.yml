@@ -1,6 +1,0 @@
----
-
-- name: "register agent with server"
-  shell: /var/ossec/bin/agent-auth -m {{ ossec_server_ip }} -p 1515
-  args:
-    creates: /var/ossec/etc/client.keys
