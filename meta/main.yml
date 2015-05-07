@@ -1,0 +1,55 @@
+---
+dependencies:
+  - role: gotansible.selfsign
+    selfsign_next_cert_name: ossec_agent_auth
+    selfsign_server_ips: "{{ ansible_all_ipv4_addresses }}"
+    when: ossec_server
+
+galaxy_info:
+  author: your name
+  description: 
+  company: your company (optional)
+  license: MIT
+  min_ansible_version: 1.2
+  platforms:
+  #- name: EL
+  #  versions:
+  #  - all
+  #  - 5
+  #  - 6
+  #  - 7
+  #- name: Fedora
+  #  versions:
+  #  - all
+  #  - 16
+  #  - 17
+  #  - 18
+  #  - 19
+  #  - 20
+  #- name: Amazon
+  #  versions:
+  #  - all
+  #  - 2013.03
+  #  - 2013.09
+  - name: Ubuntu
+    versions:
+    - precise
+    - trusty
+  - name: Debian
+    versions:
+    - wheezy
+  categories:
+  - cloud
+  #- cloud:ec2
+  #- cloud:gce
+  #- cloud:rax
+  #- clustering
+  #- database
+  #- database:nosql
+  #- database:sql
+  #- development
+  - monitoring
+  #- networking
+  #- packaging
+  - system
+  #- web

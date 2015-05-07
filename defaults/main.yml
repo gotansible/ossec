@@ -1,0 +1,32 @@
+---
+# defaults file for ossec
+
+# if false, will install the agent, otherwise will install the server
+ossec_server: false
+
+# this will install the server in a 'local' standalone mode
+ossec_local: false
+
+ossec_build_folder: /tmp/ossec
+
+# if active response is enabled, it is recommended to white list at least 1 ip address
+# so that you can connect to the machine, otherwise, active response can lock out
+# all external connections
+ossec_active_response: false
+ossec_firewall_response: false
+
+ossec_syslog: true
+
+# only valid for server agent installs meaning not server and not local
+ossec_server_ip: "10.0.100.7"
+
+ossec_whitelist_cidr: []
+
+ossec_email_enabled: false
+ossec_email_address: "notify@example.com"
+ossec_email_smtp_host: "smtp@example.com"
+
+ossec_ssl_cert: "{{ selfsign_folder }}/certs/ossec_agent_auth.crt"
+ossec_ssl_key: "{{ selfsign_folder }}/private/ossec_agent_auth.key"
+
+ossec_enable_client_registration: yes

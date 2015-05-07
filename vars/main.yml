@@ -1,0 +1,5 @@
+---
+# vars file for ossec
+
+# changing this does not change the install location currently
+ossec_dir: /var/ossec

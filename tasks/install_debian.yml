@@ -1,0 +1,26 @@
+---
+
+- name: debian - add package verify key
+  apt_key:
+    url: http://ossec.wazuh.com/repos/apt/conf/ossec-key.gpg.key
+    state: present
+
+- name: debian - add ossec package to apt
+  apt_repository:
+    repo: 'deb http://ossec.wazuh.com/repos/apt/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main'
+    state: present
+
+- name: debian - install ossec server
+  apt: pkg=ossec-hids
+       state=present
+       update_cache=yes
+       cache_valid_time=3600
+  when: (ossec_server or ossec_local)
+
+- name: debian - install ossec agent
+  apt: pkg=ossec-hids-agent
+       state=present
+       update_cache=yes
+       cache_valid_time=3600
+  when: (not ossec_server and not ossec_local)
+

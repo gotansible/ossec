@@ -1,0 +1,12 @@
+---
+# handlers file for ossec
+
+- name: restart ossec-agent
+  shell: /var/ossec/bin/ossec-control restart
+
+- name: restart ossec-server
+  shell: /var/ossec/bin/ossec-control restart
+
+#  service: name=ossec-hids
+#           state=restarted
+#           enabled=yes

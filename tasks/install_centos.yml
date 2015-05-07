@@ -1,0 +1,30 @@
+---
+
+- name: CentOS - download setup
+  get_url: 
+    url=https://www.atomicorp.com/installers/atomic
+    dest={{ ossec_build_folder }}/atomic
+  register: centos_download
+
+- name: centos - run setup packages
+  bash: cat {{ ossec_build_folder }}/atomic | sh
+
+- name: CentOS - Install OSSEC Server Package
+  yum:
+    pkg={{ item }}
+    state=present
+    update_cache=yes
+  with_items:
+    - ossec-hids
+    - ossec-hids-server
+  when: (ossec_server or ossec_local)
+
+- name: CentOS - Install OSSEC Agent 
+  yum:
+    pkg={{ item }}
+    state=present
+    update_cache=yes
+  with_items:
+    - ossec-hids
+    - ossec-hids-client
+  when: (not ossec_server and not ossec_local)
