@@ -1,12 +1,14 @@
-Role Name
+OSSEC
 =========
 
-A brief description of the role goes here.
+[![Build Status](https://travis-ci.org/gotansible/ossec.svg)](https://travis-ci.org/gotansible/ossec)
+
+Install OSSEC Server, Agent and/or Local
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+SSL Certificate and Key for the Server for auto registration. Use of the playbook gotansible.selfsign can help.
 
 Role Variables
 --------------
@@ -16,23 +18,24 @@ A description of the settable variables for this role should go here, including 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+* gotansible.selfsign - recommended for creating a self signed cert
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+See test-agent.yml or test-server.yml.
 
     - hosts: servers
+	  sudo: true
       roles:
-         - { role: username.rolename, x: 42 }
+         - { role: gotansible.ossec, ossec_server: true }
 
 License
 -------
 
-BSD
+MIT
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Created by Franklin Wise in Santa Monica, CA.
