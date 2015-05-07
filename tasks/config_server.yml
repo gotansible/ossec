@@ -12,10 +12,6 @@
     src={{ ossec_ssl_key }}
     path={{ ossec_dir }}/etc/sslmanager.key
 
-#- name: "Check if client.keys exists"
-#  stat: path=/var/ossec/etc/client.keys
-#  register: check_keys
-
 - name: determine if ossec-authd is running
   shell: ps aux | grep ossec-authd | grep -v grep | awk '{print $2}'
   register: authd_running
