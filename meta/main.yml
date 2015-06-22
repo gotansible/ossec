@@ -12,12 +12,10 @@ galaxy_info:
   license: MIT
   min_ansible_version: 1.2
   platforms:
-  #- name: EL
-  #  versions:
-  #  - all
-  #  - 5
-  #  - 6
-  #  - 7
+  - name: EL
+    versions:
+    - 6
+    - 7
   #- name: Fedora
   #  versions:
   #  - all
@@ -26,11 +24,9 @@ galaxy_info:
   #  - 18
   #  - 19
   #  - 20
-  #- name: Amazon
-  #  versions:
-  #  - all
-  #  - 2013.03
-  #  - 2013.09
+  - name: Amazon
+    versions:
+    - all
   - name: Ubuntu
     versions:
     - precise
