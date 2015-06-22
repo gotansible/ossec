@@ -1,0 +1,18 @@
+---
+- name: preinstall - create folder
+  file:
+    state=directory
+    path=/var/ossec/etc/
+
+- name: preinstall - centos depend
+  yum:
+    name=libselinux-python
+    state=present
+
+- name: preinstall - unattended install config
+  tags:
+    - install
+  template:
+    src=preloaded-vars.conf.j2
+    dest=/var/ossec/etc/preloaded-vars.conf
+

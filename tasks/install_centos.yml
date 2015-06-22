@@ -5,14 +5,31 @@
     state=directory
     path={{ ossec_build_folder }}
 
+- name: centos - check if already installed
+  stat: path=/var/ossec/bin/ossec-control
+  ignore_errors: yes
+  register: ossec_installed
+
 - name: CentOS - download setup
-  get_url: 
+  get_url:
     url=https://www.atomicorp.com/installers/atomic
     dest={{ ossec_build_folder }}/atomic
-  register: centos_download
+  when: not ossec_installed.stat.exists
+
+- name: centos - make executable 
+  file:
+    path={{ ossec_build_folder }}/atomic
+    mode=0755
+
+- name: centos - setup runit
+  shell: "export NON_INT=yup && {{ ossec_build_folder }}/atomic"
+  environment:
+    NON_INT: yes
+  ignore_errors: yes
+  when: not ossec_installed.stat.exists
 
 - name: centos - run setup packages
-  shell: cat {{ ossec_build_folder }}/atomic | sh
+  shell: cat {{ ossec_build_folder }}/atomic | sudo bash
 
 - name: CentOS - Install OSSEC Server Package
   yum:
