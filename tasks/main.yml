@@ -1,23 +1,32 @@
 ---
 
-
 - name: install debian package
   include: install_debian.yml
+  tags:
+    - install
   when: ansible_os_family == "Debian"
 
 - name: install centos package
-  include: install_debian.yml
+  include: install_centos.yml
+  tags:
+    - install
   when: ansible_os_family == "RedHat"
 
 - name: config - unattended install config
+  tags:
+    - config
   template:
     src=preloaded-vars.conf.j2
     dest=/var/ossec/etc/preloaded-vars.conf
 
 - name: configure server
   include: config_server.yml
+  tags:
+    - config
   when: (ossec_server and not ossec_local)
 
 - name: configure agent
   include: config_agent.yml
+  tags:
+    - config
   when: (not ossec_server and not ossec_local)

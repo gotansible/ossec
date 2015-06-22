@@ -13,7 +13,8 @@ Vagrant.configure(2) do |config|
 
 	config.vm.define "agent" do |agent|
 		agent.vm.hostname = "agent"
-		agent.vm.box = "hashicorp/precise64"
+		agent.vm.box = "chef/centos-6.5"
+		#agent.vm.box = "hashicorp/precise64"
 		agent.vm.provision :ansible do |ansible|
 			ansible.playbook = "test-agent.yml"
 		end

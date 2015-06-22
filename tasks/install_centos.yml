@@ -1,5 +1,10 @@
 ---
 
+- name: centos - build folder
+  file:
+    state=directory
+    path={{ ossec_build_folder }}
+
 - name: CentOS - download setup
   get_url: 
     url=https://www.atomicorp.com/installers/atomic
@@ -7,7 +12,7 @@
   register: centos_download
 
 - name: centos - run setup packages
-  bash: cat {{ ossec_build_folder }}/atomic | sh
+  shell: cat {{ ossec_build_folder }}/atomic | sh
 
 - name: CentOS - Install OSSEC Server Package
   yum:
