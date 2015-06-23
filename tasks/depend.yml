@@ -1,0 +1,24 @@
+---
+
+- name: centos - build folder
+  file:
+    state=directory
+    path={{ ossec_build_folder }}
+
+- name: preinstall - centos depend
+  yum:
+    name=libselinux-python
+    state=present
+  when: ansible_os_family == "RedHat"
+
+- name: install - centos depend
+  yum:
+    name={{ item }}
+    state=present
+  with_items:
+    - gcc
+    - gcc-c++
+    - kernel-devel
+    - openssl-devel
+  when: ansible_os_family == "RedHat"
+

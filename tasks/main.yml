@@ -1,6 +1,6 @@
 ---
-- name: pre install setup
-  include: preinstall.yml
+- name: depend
+  include: depend.yml
   tags:
     - install
 

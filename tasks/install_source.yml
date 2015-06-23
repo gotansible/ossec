@@ -10,7 +10,7 @@
     url=http://www.ossec.net/files/{{ ossec_source_filename }}
     dest={{ ossec_build_folder }}
   when: not ossec_installed.stat.exists
-  
+
 - name: install - ossec source
   unarchive:
     src={{ ossec_build_folder }}/{{ ossec_source_filename }}
@@ -18,19 +18,21 @@
     copy=no
   when: not ossec_installed.stat.exists
 
-- name: install - centos depend
-  yum:
-    name={{ item }}
-    state=present
-  with_items:
-    - gcc
-    - gcc-c++
-    - kernel-devel
+- set_fact:
+    ossec_build_folder_source: "{{ ossec_build_folder }}/{{ ossec_source_filename|replace(\'.tar.gz\', \'\') }}"
+  when: not ossec_installed.stat.exists
+
+- name: preinstall - unattended install config
+  tags:
+    - install
+  template:
+    src=preloaded-vars.conf.j2
+    dest="{{ ossec_build_folder_source }}/etc/preloaded-vars.conf"
+  when: not ossec_installed.stat.exists
 
 - name: install - compile and install
   shell: ./install.sh
   args:
-    chdir: "{{ ossec_build_folder }}/{{ ossec_source_filename|replace(\'.tar.gz\', \'\') }}"
+    chdir: "{{ ossec_build_folder_source }}"
     creates: /var/ossec/bin/ossec-control
   when: not ossec_installed.stat.exists
-
