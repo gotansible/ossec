@@ -16,3 +16,8 @@
     src=preloaded-vars.conf.j2
     dest=/var/ossec/etc/preloaded-vars.conf
 
+- name: centos - build folder
+  file:
+    state=directory
+    path={{ ossec_build_folder }}
+

@@ -1,0 +1,36 @@
+---
+
+- name: centos - check if already installed
+  stat: path=/var/ossec/bin/ossec-control
+  ignore_errors: yes
+  register: ossec_installed
+
+- name: install - download source
+  get_url:
+    url=http://www.ossec.net/files/{{ ossec_source_filename }}
+    dest={{ ossec_build_folder }}
+  when: not ossec_installed.stat.exists
+  
+- name: install - ossec source
+  unarchive:
+    src={{ ossec_build_folder }}/{{ ossec_source_filename }}
+    dest={{ ossec_build_folder }}
+    copy=no
+  when: not ossec_installed.stat.exists
+
+- name: install - centos depend
+  yum:
+    name={{ item }}
+    state=present
+  with_items:
+    - gcc
+    - gcc-c++
+    - kernel-devel
+
+- name: install - compile and install
+  shell: ./install.sh
+  args:
+    chdir: "{{ ossec_build_folder }}/{{ ossec_source_filename|replace(\'.tar.gz\', \'\') }}"
+    creates: /var/ossec/bin/ossec-control
+  when: not ossec_installed.stat.exists
+

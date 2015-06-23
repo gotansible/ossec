@@ -15,6 +15,7 @@ ossec_build_folder: /tmp/ossec
 ossec_active_response: false
 ossec_firewall_response: false
 
+ossec_source_filename: ossec-hids-2.8.2.tar.gz
 ossec_syslog: true
 
 # only valid for server agent installs meaning not server and not local
