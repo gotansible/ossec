@@ -21,15 +21,14 @@
     path={{ ossec_build_folder }}/atomic
     mode=0755
 
-- name: centos - setup runit
-  shell: "export NON_INT=yup && {{ ossec_build_folder }}/atomic"
+- name: centos - add correct yum repo
+  shell: "{{ ossec_build_folder }}/atomic"
+  args:
+    chdir:  "{{ ossec_build_folder }}"
   environment:
     NON_INT: yes
   ignore_errors: yes
   when: not ossec_installed.stat.exists
-
-- name: centos - run setup packages
-  shell: cat {{ ossec_build_folder }}/atomic | sudo bash
 
 - name: CentOS - Install OSSEC Server Package
   yum:
