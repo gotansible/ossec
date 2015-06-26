@@ -8,13 +8,13 @@
   include: install_debian.yml
   tags:
     - install
-  when: ansible_os_family == "Debian"
+  when: (ansible_os_family == "Debian" and not ossec_from_source)
 
-- name: install centos package
+- name: install from source
   include: install_source.yml
   tags:
     - install
-  when: ansible_os_family == "RedHat"
+  when: (ansible_os_family == "RedHat" or ossec_from_source)
 
 - name: configure server
   include: config_server.yml

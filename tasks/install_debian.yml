@@ -1,10 +1,10 @@
 ---
-- name: preinstall - create folder
+- name: debian - create folder
   file:
     state=directory
     path=/var/ossec/etc/
 
-- name: preinstall - unattended install config
+- name: debian - unattended install config
   tags:
     - install
   template:

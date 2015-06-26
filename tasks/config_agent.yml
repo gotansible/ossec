@@ -1,6 +1,6 @@
 ---
 
-- name: "Check if client.keys exists"
+- name: config_agent - check if client.keys exists
   stat: path=/var/ossec/etc/client.keys
   register: client_keys
 
@@ -8,17 +8,17 @@
 # -p <port>           Manager port (default 1515).
 # -A <agent name>     Agent name (default is the hostname).
 # -D <OSSEC Dir>      Location where OSSEC is installed.
-- name: "register agent with server"
+- name: config_agent - register agent with server
   shell: /var/ossec/bin/agent-auth -m {{ ossec_server_ip }} -p 1515
   args:
     creates: /var/ossec/etc/client.keys
   when: not client_keys.stat.exists
 
-- name: is agent running
+- name: config_agent - is agent running
   shell: ps aux | grep ossec-agentd | grep -v grep | awk '{print $2}'
   register: agent_running
   changed_when: False
 
-- name: "start ossec agent"
+- name: config_agent - "start ossec agent"
   shell: /var/ossec/bin/ossec-control start
   when: agent_running.stdout == ""

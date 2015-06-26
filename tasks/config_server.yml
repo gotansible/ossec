@@ -1,22 +1,22 @@
 ---
 
-- name: link ssl cert
+- name: config-server - link ssl cert
   file:
     state=link
     src={{ ossec_ssl_cert }}
     path={{ ossec_dir }}/etc/sslmanager.cert
 
-- name: link ssl cert
+- name: config-server - link ssl cert
   file:
     state=link
     src={{ ossec_ssl_key }}
     path={{ ossec_dir }}/etc/sslmanager.key
 
-- name: determine if ossec-authd is running
+- name: config-server - determine if ossec-authd is running
   shell: ps aux | grep ossec-authd | grep -v grep | awk '{print $2}'
   register: authd_running
   changed_when: False
 
-- name: "enable client registration"
+- name: config-server - enable client registration
   shell: '/var/ossec/bin/ossec-authd -p 1515 >/dev/null 2>&1 &'
   when: (ossec_enable_client_registration and authd_running.stdout == "")

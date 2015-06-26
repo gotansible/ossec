@@ -1,17 +1,17 @@
 ---
 
-- name: centos - build folder
+- name: depend - build folder
   file:
     state=directory
     path={{ ossec_build_folder }}
 
-- name: preinstall - centos depend
+- name: depend - centos depend
   yum:
     name=libselinux-python
     state=present
   when: ansible_os_family == "RedHat"
 
-- name: install - centos depend
+- name: depend - centos depend
   yum:
     name={{ item }}
     state=present
@@ -21,4 +21,18 @@
     - kernel-devel
     - openssl-devel
   when: ansible_os_family == "RedHat"
+
+- name: depend - install Debian packages
+  apt:
+    name={{ item }}
+    state=present
+    update_cache=yes
+    cache_valid_time=3600
+  with_items:
+    - build-essential
+    - libssl-dev
+    - inotify-tools
+  register: apt_output
+  changed_when: "'0 upgraded, 0 newly installed, 0 to remove' not in apt_output.stdout and 'not upgraded' not in apt_output.stdout"
+  when: ansible_os_family == "Debian"
 

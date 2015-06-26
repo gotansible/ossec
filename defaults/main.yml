@@ -16,6 +16,9 @@ ossec_active_response: false
 ossec_firewall_response: false
 
 ossec_source_filename: ossec-hids-2.8.2.tar.gz
+ossec_source_url: http://www.ossec.net/files/{{ ossec_source_filename }}
+ossec_from_source: False
+
 ossec_syslog: true
 
 # only valid for server agent installs meaning not server and not local
