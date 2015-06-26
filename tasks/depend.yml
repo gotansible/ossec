@@ -33,6 +33,5 @@
     - libssl-dev
     - inotify-tools
   register: apt_output
-  changed_when: "'0 upgraded, 0 newly installed, 0 to remove' not in apt_output.stdout and 'not upgraded' not in apt_output.stdout"
   when: ansible_os_family == "Debian"
 
