@@ -30,6 +30,6 @@
 - name: install_source - compile and install
   shell: ./install.sh
   args:
-    chdir: "{{ ossec_build_folder_source }}"
+    chdir: "{{ ossec_build_folder }}/{{ ossec_source_folder}}"
     creates: /var/ossec/bin/ossec-control
   when: not ossec_installed.stat.exists
