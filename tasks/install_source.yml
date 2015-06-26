@@ -8,25 +8,23 @@
 - name: install_source - download source
   get_url:
     url={{ ossec_source_url }}
-    dest={{ ossec_build_folder }}/{{ ossec_source_filename }}
+    dest={{ ossec_build_folder }}/{{ ossec_source_archive }}
   when: not ossec_installed.stat.exists
 
 - name: install_source - unarchive source
   unarchive:
-    src={{ ossec_build_folder }}/{{ ossec_source_filename }}
+    src={{ ossec_build_folder }}/{{ ossec_source_archive }}
     dest={{ ossec_build_folder }}/
     copy=no
   register: unarchived
   when: not ossec_installed.stat.exists
-
-- debug: var=unarchived
 
 - name: install_source - unattended install config
   tags:
     - install
   template:
     src=preloaded-vars.conf.j2
-    dest="{{ unarchived.path }}/etc/preloaded-vars.conf"
+    dest="{{ ossec_build_folder }}/{{ ossec_source_folder}}/etc/preloaded-vars.conf"
   when: not ossec_installed.stat.exists
 
 - name: install_source - compile and install
