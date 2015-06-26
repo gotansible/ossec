@@ -14,12 +14,12 @@
 - name: install_source - unarchive source
   unarchive:
     src={{ ossec_build_folder }}/{{ ossec_source_filename }}
-    dest={{ ossec_build_folder }}/
+    dest={{ ossec_build_folder }}/{{ ossec_source_filename|replace('.tar.gz', '') }}
     copy=no
   when: not ossec_installed.stat.exists
 
 - set_fact:
-    ossec_build_folder_source: "{{ ossec_build_folder }}/{{ ossec_source_filename|replace(\'.tar.gz\', \'\') }}"
+    ossec_build_folder_source: "{{ ossec_build_folder }}/{{ ossec_source_filename|replace('.tar.gz', '') }}"
   when: not ossec_installed.stat.exists
 
 - name: install_source - unattended install config
