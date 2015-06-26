@@ -8,13 +8,13 @@
 - name: install_source - download source
   get_url:
     url={{ ossec_source_url }}
-    dest={{ ossec_build_folder }}
+    dest={{ ossec_build_folder }}/{{ ossec_source_filename }}
   when: not ossec_installed.stat.exists
 
-- name: install_source - ossec source
+- name: install_source - unarchive source
   unarchive:
     src={{ ossec_build_folder }}/{{ ossec_source_filename }}
-    dest={{ ossec_build_folder }}
+    dest={{ ossec_build_folder }}/
     copy=no
   when: not ossec_installed.stat.exists
 
