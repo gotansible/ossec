@@ -19,8 +19,7 @@
   register: unarchived
   when: not ossec_installed.stat.exists
 
-- name: debug
-  debug: var={{ unarchived }}
+- debug: var=unarchived
 
 - name: install_source - unattended install config
   tags:
