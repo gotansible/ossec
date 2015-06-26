@@ -1,5 +1,11 @@
 ---
 
+- name: config_agent - force re-register
+  file:
+    state=absent
+    path=/var/ossec/etc/client.keys
+  when: ossec_agent_reregiser
+
 - name: config_agent - check if client.keys exists
   stat: path=/var/ossec/etc/client.keys
   register: client_keys

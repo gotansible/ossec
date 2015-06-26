@@ -6,6 +6,7 @@ ossec_server: false
 
 # this will install the server in a 'local' standalone mode
 ossec_local: false
+ossec_agent_reregister: false
 
 ossec_build_folder: /tmp/ossec
 
