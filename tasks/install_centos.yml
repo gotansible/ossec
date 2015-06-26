@@ -1,10 +1,10 @@
 ---
-- name: preinstall - create folder
+- name: centos - create folder
   file:
     state=directory
     path=/var/ossec/etc/
 
-- name: preinstall - unattended install config
+- name: centos - unattended install config
   tags:
     - install
   template:
@@ -17,7 +17,7 @@
   ignore_errors: yes
   register: ossec_installed
 
-- name: CentOS - download setup
+- name: centos - download setup
   get_url:
     url=https://www.atomicorp.com/installers/atomic
     dest={{ ossec_build_folder }}/atomic
