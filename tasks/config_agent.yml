@@ -4,7 +4,7 @@
   file:
     state=absent
     path=/var/ossec/etc/client.keys
-  when: ossec_agent_reregiser
+  when: ossec_agent_reregister
 
 - name: config_agent - check if client.keys exists
   stat: path=/var/ossec/etc/client.keys
